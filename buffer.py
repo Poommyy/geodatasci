@@ -7,7 +7,6 @@ from streamlit_folium import folium_static
 
 st.title('Streamlit Buffer Example')
 add_select = st.sidebar.selectbox("What basemap do you want to see?",("OpenStreetMap", "Stamen Terrain","Stamen Toner"))
-buffersize = st.sidebar.slider('Buffer size', min_value=100, max_value=3000)
 
 
 df = pd.read_csv('https://raw.githubusercontent.com/Maplub/MonthlyAirQuality/master/sensorlist.csv')
@@ -28,6 +27,7 @@ nan_sta = geo_df.loc[geo_df.geometry.within(nanall)]
 #create buffer
 nan_UTM = nan_sta.to_crs("EPSG:32647")
 
+buffersize = 500
 nan_UTM['buffer'] = nan_UTM['geometry'].buffer(buffersize)
 #change buffer column to WGS84
 nan_UTM['buffer'] = nan_UTM['buffer'].to_crs("EPSG:4326")
