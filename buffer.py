@@ -62,3 +62,5 @@ for _,r in nan_UTM.iterrows():
     geo_j = fo.GeoJson(data=geo_j,
                            style_function=lambda x: {'fillColor': 'orange'})
     geo_j.add_to(station_map)
+	
+folium_static(station_map)
