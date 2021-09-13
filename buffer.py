@@ -7,7 +7,7 @@ from streamlit_folium import folium_static
 
 st.title('Streamlit Buffer Example')
 add_select = st.sidebar.selectbox("What basemap do you want to see?",("OpenStreetMap", "Stamen Terrain","Stamen Toner"))
-buffersize = st.sidebars.slider('Buffer size', min_value=100, max_value=3000)
+buffersize = st.sidebar.slider('Buffer size', min_value=100, max_value=3000)
 
 
 df = pd.read_csv('https://raw.githubusercontent.com/Maplub/MonthlyAirQuality/master/sensorlist.csv')
