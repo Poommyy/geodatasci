@@ -7,6 +7,7 @@ from streamlit_folium import folium_static
 
 st.title('Streamlit Buffer Example')
 add_select = st.sidebar.selectbox("What basemap do you want to see?",("OpenStreetMap", "Stamen Terrain","Stamen Toner"))
+buffersize = st.sidebars.slider('Buffer size', min_value=100, max_value=3000)
 
 
 df = pd.read_csv('https://raw.githubusercontent.com/Maplub/MonthlyAirQuality/master/sensorlist.csv')
@@ -27,8 +28,7 @@ nan_sta = geo_df.loc[geo_df.geometry.within(nanall)]
 #create buffer
 nan_UTM = nan_sta.to_crs("EPSG:32647")
 
-distance_buffer = 500 #this one will be interactive
-nan_UTM['buffer'] = nan_UTM['geometry'].buffer(distance_buffer)
+nan_UTM['buffer'] = nan_UTM['geometry'].buffer(buffersize)
 #change buffer column to WGS84
 nan_UTM['buffer'] = nan_UTM['buffer'].to_crs("EPSG:4326")
 
@@ -62,5 +62,3 @@ for _,r in nan_UTM.iterrows():
     geo_j = fo.GeoJson(data=geo_j,
                            style_function=lambda x: {'fillColor': 'orange'})
     geo_j.add_to(station_map)
-	
-folium_static(station_map)
